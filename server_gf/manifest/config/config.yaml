@@ -1,11 +1,34 @@
 server:
-  address:     ":8000"
+  address: ":8000"
   openapiPath: "/api.json"
   swaggerPath: "/swagger"
 
 logger:
-  level : "all"
+  level: "all"
   stdout: true
 
+# Database.
+database:
+  logger:
+    level:   "all"
+    stdout:  true
+    Path: "resource/log/sql"
 
+  default:
+    link:   "mysql:root:123456@tcp(www.xdblog.site:3307)/gf2_admin"
+    debug:  true
+    charset: "utf8mb4" #数据库编码
+    dryRun: false #空跑
+    maxIdle: 10 #连接池最大闲置的连接数
+    maxOpen: 10 #连接池最大打开的连接数
+    maxLifetime: 30 #(单位秒)连接对象可重复使用的时间长度
 
+# CLI.
+gfcli:
+  gen:
+    dao:
+      - link: "mysql:root:123456@tcp(www.xdblog.site:3307)/gf2_admin"
+        path: "./internal/app/system"
+        descriptionTag: true
+        noModelComment: true
+        tables: "sys_config"
