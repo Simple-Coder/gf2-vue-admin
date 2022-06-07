@@ -15,7 +15,7 @@ database:
     Path: "resource/log/sql"
 
   default:
-    link:   "mysql:root:123456@tcp(www.xdblog.site:3307)/gf2_admin"
+    link:   "mysql:root:1234567@tcp(www.xdblog.site:3308)/gf2_admin"
     debug:  true
     charset: "utf8mb4" #数据库编码
     dryRun: false #空跑
