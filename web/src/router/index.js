@@ -171,6 +171,21 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/system',
+    component: Layout,
+    redirect: '/system/sysconfig',
+    name: 'system',
+    meta: { title: '系统管理', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'sysconfig',
+        name: 'sysconfig',
+        component: () => import('@/views/system/sysconfig/index'),
+        meta: { title: '系统参数', icon: 'table' }
+      },
+    ]
+  },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
