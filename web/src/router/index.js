@@ -182,13 +182,13 @@ export const constantRoutes = [
         path: 'param',
         name: 'param',
         component: () => import('@/views/system/config/param/index'),
-        meta: { title: '系统参数', icon: 'table' }
+        meta: { title: '系统参数', icon: 'table', noCache: true }
       },
       {
         path: 'dict',
         name: 'dict',
         component: () => import('@/views/system/config/dict/index'),
-        meta: { title: '系统字典', icon: 'form' }
+        meta: { title: '系统字典', icon: 'form', noCache: false }
       }
     ]
   },
