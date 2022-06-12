@@ -47,6 +47,7 @@
 import { getSysConfigList } from '@/api/system/sysconfig'
 
 export default {
+  name: 'SysParam',
   filters: {
     statusFilter(status) {
       const statusMap = {

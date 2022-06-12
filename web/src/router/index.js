@@ -180,13 +180,13 @@ export const constantRoutes = [
     children: [
       {
         path: 'param',
-        name: 'param',
+        name: 'SysParam',
         component: () => import('@/views/system/config/param/index'),
         meta: { title: '系统参数', icon: 'table', noCache: true }
       },
       {
         path: 'dict',
-        name: 'dict',
+        name: 'SysDict',
         component: () => import('@/views/system/config/dict/index'),
         meta: { title: '系统字典', icon: 'form', noCache: false }
       }
