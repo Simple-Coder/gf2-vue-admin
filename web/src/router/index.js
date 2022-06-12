@@ -174,16 +174,22 @@ export const constantRoutes = [
   {
     path: '/system',
     component: Layout,
-    redirect: '/system/sysconfig',
+    redirect: '/system/config',
     name: 'system',
-    meta: { title: '系统管理', icon: 'el-icon-s-help' },
+    meta: { title: '系统配置', icon: 'el-icon-setting' },
     children: [
       {
-        path: 'sysconfig',
-        name: 'sysconfig',
-        component: () => import('@/views/system/sysconfig/index'),
+        path: 'param',
+        name: 'param',
+        component: () => import('@/views/system/config/param/index'),
         meta: { title: '系统参数', icon: 'table' }
       },
+      {
+        path: 'dict',
+        name: 'dict',
+        component: () => import('@/views/system/config/dict/index'),
+        meta: { title: '系统字典', icon: 'form' }
+      }
     ]
   },
 
