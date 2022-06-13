@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form :inline="true">
+    <el-form ref="queryForm" :model="queryParams" :inline="true" label-width="68px">
       <el-form-item label="参数名称">
         <el-input placeholder="请输入参数名称" />
       </el-form-item>
@@ -13,12 +13,12 @@
         </el-select>
       </el-form-item>
       <el-form-item label="创建时间">
-        <el-date-picker range-separator="-" size="small" type="daterange" value-format="yyyy-MM-dd" start-placeholde="开始日期" end-placeholde="结束日期" />
+        <el-date-picker v-model="dateRange" style="width: 240px" range-separator="-" size="small" type="daterange" value-format="yyyy-MM-dd" start-placeholder="开始日期" end-placeholder="结束日期" />
       </el-form-item>
 
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini">搜索</el-button>
-        <el-button  icon="el-icon-refresh" size="mini">重置</el-button>
+        <el-button icon="el-icon-refresh" size="mini">重置</el-button>
       </el-form-item>
     </el-form>
 
@@ -76,7 +76,17 @@ export default {
   data() {
     return {
       list: null,
-      listLoading: true
+      listLoading: true,
+      // 日期范围
+      dateRange: [],
+      // 查询参数
+      queryParams: {
+        pageNum: 1,
+        pageSize: 10,
+        configName: undefined,
+        configKey: undefined,
+        configType: undefined
+      }
     }
   },
   created() {
