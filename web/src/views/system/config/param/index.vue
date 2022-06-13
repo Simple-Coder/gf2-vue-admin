@@ -2,10 +2,10 @@
   <div class="app-container">
     <el-form ref="queryForm" :model="queryParams" :inline="true" label-width="68px">
       <el-form-item label="参数名称">
-        <el-input placeholder="请输入参数名称" />
+        <el-input v-model="queryParams.configName" placeholder="请输入参数名称" style="width: 240px" clearable size="small" />
       </el-form-item>
       <el-form-item label="参数键名">
-        <el-input placeholder="请输入参数键名" />
+        <el-input v-model="queryParams.configKey" placeholder="请输入参数键名" style="width: 240px" clearable size="small" />
       </el-form-item>
       <el-form-item label="系统内置">
         <el-select placeholder="系统内置">
