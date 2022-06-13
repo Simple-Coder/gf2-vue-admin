@@ -1,13 +1,28 @@
 <template>
   <div class="app-container">
-    <el-table
-      v-loading="listLoading"
-      :data="list"
-      element-loading-text="Loading"
-      border
-      fit
-      highlight-current-row
-    >
+    <el-form :inline="true">
+      <el-form-item label="参数名称">
+        <el-input placeholder="请输入参数名称" />
+      </el-form-item>
+      <el-form-item label="参数键名">
+        <el-input placeholder="请输入参数键名" />
+      </el-form-item>
+      <el-form-item label="系统内置">
+        <el-select placeholder="系统内置">
+          <el-option />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="创建时间">
+        <el-date-picker range-separator="-" size="small" type="daterange" value-format="yyyy-MM-dd" start-placeholde="开始日期" end-placeholde="结束日期" />
+      </el-form-item>
+
+      <el-form-item>
+        <el-button type="primary" icon="el-icon-search" size="mini">搜索</el-button>
+        <el-button  icon="el-icon-refresh" size="mini">重置</el-button>
+      </el-form-item>
+    </el-form>
+
+    <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
       <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">
           {{ scope.$index }}
