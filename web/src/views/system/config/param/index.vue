@@ -38,35 +38,18 @@
     </el-row>
 
     <el-table v-loading="listLoading" :data="list">
-      <el-table-column align="center" label="ID" width="95">
+      <el-table-column type="selection" width="55" align="center" />
+      <el-table-column label="参数主键" align="center" prop="configId" />
+      <el-table-column label="参数名称" align="center" prop="configName" />
+      <el-table-column label="参数键名" align="center" prop="configKey" />
+      <el-table-column label="参数键值" align="center" prop="configValue" />
+      <el-table-column label="系统内置" align="center" prop="configType" />
+      <el-table-column label="备注" align="center" prop="remark" />
+      <el-table-column label="创建时间" align="center" prop="createdAt" />
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          {{ scope.$index }}
-        </template>
-      </el-table-column>
-      <el-table-column label="参数名">
-        <template slot-scope="scope">
-          {{ scope.row.configName }}
-        </template>
-      </el-table-column>
-      <el-table-column label="参数值" width="110" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.configKey }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="参数键" width="110" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.configValue }}
-        </template>
-      </el-table-column>
-      <!-- <el-table-column class-name="status-col" label="Status" width="110" align="center">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
-        </template>
-      </el-table-column> -->
-      <el-table-column align="center" prop="remark" label="备注" width="200">
-        <template slot-scope="scope">
-          <!-- <i class="el-icon-time" /> -->
-          <span>{{ scope.row.remark }}</span>
+          <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)">修改</el-button>
+          <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
