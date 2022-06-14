@@ -22,14 +22,22 @@
       </el-form-item>
     </el-form>
 
-    <el-row>
-      <el-button type="primary" size="mini" icon="el-icon-plus">新增</el-button>
-      <el-button type="success" size="mini" icon="el-icon-edit">修改</el-button>
-      <el-button type="danger" size="mini" icon="el-icon-delete">删除</el-button>
-      <el-button type="warning" size="mini" icon="el-icon-download">导出</el-button>
+    <el-row :gutter="10" class="mb8">
+      <el-col :span="1.5">
+        <el-button type="primary" size="mini" icon="el-icon-plus">新增</el-button>
+      </el-col>
+      <el-col :span="1.5">
+        <el-button type="success" size="mini" icon="el-icon-edit">修改</el-button>
+      </el-col>
+      <el-col :span="1.5">
+        <el-button type="danger" size="mini" icon="el-icon-delete">删除</el-button>
+      </el-col>
+      <el-col :span="1.5">
+        <el-button type="warning" size="mini" icon="el-icon-download">导出</el-button>
+      </el-col>
     </el-row>
 
-    <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+    <el-table v-loading="listLoading" :data="list">
       <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">
           {{ scope.$index }}
@@ -110,3 +118,8 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.mb8 {
+  margin-bottom: 8px;
+}
+</style>
