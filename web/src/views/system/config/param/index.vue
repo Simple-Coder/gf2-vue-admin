@@ -22,6 +22,13 @@
       </el-form-item>
     </el-form>
 
+    <el-row>
+      <el-button type="primary" size="mini" icon="el-icon-plus">新增</el-button>
+      <el-button type="success" size="mini" icon="el-icon-edit">修改</el-button>
+      <el-button type="danger" size="mini" icon="el-icon-delete">删除</el-button>
+      <el-button type="warning" size="mini" icon="el-icon-download">导出</el-button>
+    </el-row>
+
     <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
       <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">
