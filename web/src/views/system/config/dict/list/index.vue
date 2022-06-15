@@ -26,14 +26,14 @@
         <el-button type="primary" size="mini" icon="el-icon-plus">新增</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="success" size="mini" icon="el-icon-edit">修改</el-button>
+        <el-button type="success" size="mini" icon="el-icon-edit" :disabled="single">修改</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="danger" size="mini" icon="el-icon-delete">删除</el-button>
+        <el-button type="danger" size="mini" icon="el-icon-delete" :disabled="multiple">删除</el-button>
       </el-col>
     </el-row>
 
-    <el-table v-loading="listLoading" :data="list">
+    <el-table v-loading="listLoading" :data="typeList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="参数主键" align="center" prop="configId" />
       <el-table-column label="参数名称" align="center" prop="configName" />
@@ -69,8 +69,14 @@ export default {
   },
   data() {
     return {
-      list: null,
+      typeList: null,
       listLoading: true,
+      // 选中数组
+      ids: [],
+      // 非单个禁用
+      single: true,
+      // 非多个禁用
+      multiple: true,
       // 日期范围
       dateRange: [],
       // 查询参数
@@ -90,9 +96,15 @@ export default {
     fetchData() {
       this.listLoading = true
       getSysConfigList().then(response => {
-        this.list = response.data.list
+        this.typeList = response.data.list
         this.listLoading = false
       })
+    },
+    // 多选框选中数据
+    handleSelectionChange(selection) {
+      this.ids = selection.map(item => item.configId)
+      this.single = selection.length !== 1
+      this.multiple = !selection.length
     }
   }
 }
