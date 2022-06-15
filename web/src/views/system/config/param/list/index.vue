@@ -101,8 +101,4 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-.mb8 {
-  margin-bottom: 8px;
-}
-</style>
+
