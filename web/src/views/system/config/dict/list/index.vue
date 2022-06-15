@@ -1,5 +1,26 @@
 <template>
   <div class="app-container">
+    <el-form ref="queryForm" :model="queryParams" :inline="true" label-width="68px">
+      <el-form-item label="字典名称">
+        <el-input v-model="queryParams.dictName" placeholder="请输入字典名称" style="width: 240px" clearable size="small" />
+      </el-form-item>
+      <el-form-item label="字典类型">
+        <el-input v-model="queryParams.dictType" placeholder="请输入字典类型" style="width: 240px" clearable size="small" />
+      </el-form-item>
+      <el-form-item label="状态">
+        <el-select v-model="queryParams.status" placeholder="字典状态" clearable size="small" style="width: 240px">
+          <el-option />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="创建时间">
+        <el-date-picker v-model="dateRange" style="width: 240px" range-separator="-" size="small" type="daterange" value-format="yyyy-MM-dd" start-placeholder="开始日期" end-placeholder="结束日期" />
+      </el-form-item>
+
+      <el-form-item>
+        <el-button type="primary" icon="el-icon-search" size="mini">搜索</el-button>
+        <el-button icon="el-icon-refresh" size="mini">重置</el-button>
+      </el-form-item>
+    </el-form>
     <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
       <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">
@@ -54,7 +75,15 @@ export default {
   data() {
     return {
       list: null,
-      listLoading: true
+      listLoading: true,
+      // 查询参数
+      queryParams: {
+        pageNum: 1,
+        pageSize: 10,
+        dictName: undefined,
+        dictType: undefined,
+        status: undefined
+      }
     }
   },
   created() {
