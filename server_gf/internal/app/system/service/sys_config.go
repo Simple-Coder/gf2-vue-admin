@@ -11,7 +11,7 @@ import (
 )
 
 type ISysConfigService interface {
-	ListSysConfigs(ctx context.Context, req *system.ConfigSearchReq) (res *system.ConfigSearchRes, err error)
+	GetList(ctx context.Context, req *system.ConfigSearchReq) (res *system.ConfigSearchRes, err error)
 }
 type configImpl struct {
 }
@@ -22,7 +22,7 @@ func SysConfig() ISysConfigService {
 	return &sysConfigService
 }
 
-func (s *configImpl) ListSysConfigs(ctx context.Context, req *system.ConfigSearchReq) (res *system.ConfigSearchRes, err error) {
+func (s *configImpl) GetList(ctx context.Context, req *system.ConfigSearchReq) (res *system.ConfigSearchRes, err error) {
 	res = new(system.ConfigSearchRes)
 	err = g.Try(func() {
 		m := dao.SysConfig.Ctx(ctx)
