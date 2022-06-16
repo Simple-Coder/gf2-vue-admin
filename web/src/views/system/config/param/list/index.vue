@@ -2,23 +2,23 @@
   <div class="app-container">
     <el-form ref="queryForm" :model="queryParams" :inline="true" label-width="68px">
       <el-form-item label="参数名称">
-        <el-input v-model="queryParams.configName" placeholder="请输入参数名称" style="width: 240px" clearable size="small" />
+        <el-input v-model="queryParams.configName" placeholder="请输入参数名称" style="width: 240px" clearable size="small" @keyup.enter.native="handleQuery" />
       </el-form-item>
       <el-form-item label="参数键名">
-        <el-input v-model="queryParams.configKey" placeholder="请输入参数键名" style="width: 240px" clearable size="small" />
+        <el-input v-model="queryParams.configKey" placeholder="请输入参数键名" style="width: 240px" clearable size="small" @keyup.enter.native="handleQuery" />
       </el-form-item>
       <el-form-item label="系统内置">
         <el-select v-model="queryParams.configType" placeholder="系统内置" clearable size="small">
-          <el-option />
+          <!-- <el-option /> -->
         </el-select>
       </el-form-item>
       <el-form-item label="创建时间">
-        <el-date-picker v-model="dateRange" style="width: 240px" range-separator="-" size="small" type="daterange" value-format="yyyy-MM-dd" start-placeholder="开始日期" end-placeholder="结束日期" />
+        <el-date-picker v-model="queryParams.dateRange" style="width: 240px" range-separator="-" size="small" type="daterange" value-format="yyyy-MM-dd" start-placeholder="开始日期" end-placeholder="结束日期" />
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini">重置</el-button>
+        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
 
@@ -37,7 +37,7 @@
       </el-col>
     </el-row>
 
-    <el-table v-loading="listLoading" :data="configList" @selection-change="handleSelectionChange">
+    <el-table v-loading="loading" :data="configList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="参数主键" align="center" prop="configId" />
       <el-table-column label="参数名称" align="center" prop="configName" />
@@ -61,49 +61,68 @@ import { getSysConfigList } from '@/api/system/sysconfig'
 
 export default {
   name: 'SysParam',
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger'
-      }
-      return statusMap[status]
-    }
-  },
   data() {
     return {
       // 表格数据
       configList: [],
-      listLoading: true,
+      // 遮罩层
+      loading: true,
       // 选中数组
       ids: [],
       // 非单个禁用
       single: true,
       // 非多个禁用
       multiple: true,
-      // 日期范围
-      dateRange: [],
+
+      // 总条数
+      total: 0,
       // 查询参数
       queryParams: {
         pageNum: 1,
         pageSize: 10,
         configName: undefined,
         configKey: undefined,
-        configType: undefined
+        configType: undefined,
+        // 日期范围
+        dateRange: []
       }
     }
   },
   created() {
-    this.fetchData()
+    this.getList()
   },
   methods: {
-    fetchData() {
-      this.listLoading = true
-      getSysConfigList().then(response => {
+    /** 查询参数列表 */
+    getList() {
+      this.loading = true
+      getSysConfigList(this.queryParams).then(response => {
         this.configList = response.data.list
-        this.listLoading = false
-      })
+        this.total = response.data.total
+        this.loading = false
+      }
+      )
+    },
+    /** 搜索按钮操作 */
+    handleQuery() {
+      this.queryParams.pageNum = 1
+      this.getList()
+    },
+    /** 重置按钮操作 */
+    resetQuery() {
+      // this.dateRange = []
+      this.queryParams = {
+        pageNum: 1,
+        pageSize: 10,
+        configName: undefined,
+        configKey: undefined,
+        configType: undefined,
+        // 日期范围
+        dateRange: []
+      }
+      // 指定表单属性值重置
+      this.$refs['queryForm'].resetFields()
+      // this.resetForm('queryForm')
+      this.handleQuery()
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
