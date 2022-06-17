@@ -11,7 +11,7 @@ type configController struct {
 
 var SysConfig = configController{}
 
-// List 系统参数列表--..
+// List 系统参数列表--....
 func (c *configController) List(ctx context.Context, req *system.ConfigSearchReq) (res *system.ConfigSearchRes, err error) {
 	res, err = systemService.SysConfig().GetList(ctx, req)
 	return
