@@ -21,6 +21,9 @@ var (
 				router.BindController(group)
 			})
 			enhanceOpenAPIDoc(s)
+			//s.SetFileServerEnabled(true)
+			//s.SetIndexFolder(true)
+			//s.AddSearchPath("D:\\study\\dev\\gf2-vue-admin\\web\\dist")
 			s.Run()
 			return nil
 		},
