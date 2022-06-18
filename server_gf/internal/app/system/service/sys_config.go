@@ -34,11 +34,12 @@ func (s *configImpl) GetList(ctx context.Context, req *system.ConfigSearchReq) (
 				m = m.Where(dao.SysConfig.Columns().ConfigType, gconv.Int(req.ConfigType))
 			}
 			if req.ConfigKey != "" {
-				m = m.Where(dao.SysConfig.Columns().ConfigKey, gconv.Int(req.ConfigKey))
+				m = m.WhereLike(dao.SysConfig.Columns().ConfigKey, req.ConfigKey)
 			}
 			if len(req.DateRange) > 0 {
 				m = m.WhereGTE(dao.SysConfig.Columns().CreatedAt, req.DateRange[0])
 				m = m.WhereLTE(dao.SysConfig.Columns().CreatedAt, req.DateRange[1])
+				//m = m.Where("created_at >= ? AND created_at<=?", req.DateRange[0], req.DateRange[1])
 			}
 		}
 		res.Total, err = m.Count()
