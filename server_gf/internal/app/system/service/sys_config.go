@@ -28,13 +28,13 @@ func (s *configImpl) GetList(ctx context.Context, req *system.ConfigSearchReq) (
 		m := dao.SysConfig.Ctx(ctx)
 		if req != nil {
 			if req.ConfigName != "" {
-				m = m.WhereLike(dao.SysConfig.Columns().ConfigName, req.ConfigName)
+				m = m.WhereLike(dao.SysConfig.Columns().ConfigName, "%"+req.ConfigName+"%")
 			}
 			if req.ConfigType != "" {
 				m = m.Where(dao.SysConfig.Columns().ConfigType, gconv.Int(req.ConfigType))
 			}
 			if req.ConfigKey != "" {
-				m = m.WhereLike(dao.SysConfig.Columns().ConfigKey, req.ConfigKey)
+				m = m.WhereLike(dao.SysConfig.Columns().ConfigKey, "%"+req.ConfigKey+"%")
 			}
 			if len(req.DateRange) > 0 {
 				m = m.WhereGTE(dao.SysConfig.Columns().CreatedAt, req.DateRange[0])
