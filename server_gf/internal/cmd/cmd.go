@@ -17,7 +17,15 @@ var (
 		Brief: "start http server",
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			s := g.Server()
+			//使用中间件
+			s.Use(ghttp.MiddlewareHandlerResponse)
+			//绑定路由
 			s.Group("/", func(group *ghttp.RouterGroup) {
+				//跨域
+				group.Middleware(
+					ghttp.MiddlewareCORS,
+				)
+				//绑定处理器
 				router.BindController(group)
 			})
 			enhanceOpenAPIDoc(s)

@@ -7,7 +7,6 @@ import (
 
 func BindController(group *ghttp.RouterGroup) {
 	group.Group("/api/v1", func(group *ghttp.RouterGroup) {
-		group.Middleware(ghttp.MiddlewareHandlerResponse)
 		//绑定后台路由
 		systemRouter.BindController(group)
 	})
